@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: devops-learning-app
+  namespace: dev
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: devops-learning-app
+
+  template:
+    metadata:
+      labels:
+        app: devops-learning-app
+
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+
+      containers:
+        - name: devops-learning-app
+          image: ghcr.io/ankitraj10/devops-learning-app:1.1
+          ports:
+            - containerPort: 8080
